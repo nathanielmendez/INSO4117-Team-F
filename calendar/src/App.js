@@ -6,9 +6,9 @@ import React, { useState } from "react";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DateTimePicker from "react-datetime-picker";
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import "react-clock/dist/Clock.css";
-import img from "./logo.png"
+// import img from "./logo.png"
 import "./App.css";
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
