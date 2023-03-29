@@ -59,10 +59,11 @@ function App() {
   const [event,setEvent] = useState("");
 
   function Popup() {
-    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "",resource:"",notes:""});
+    const [Appointment, setAppointment] = useState({title: "",
+     start: "", end: "", resource: "", notes: ""});
 
     function handleAddEvent() {
-      setAllEvents([...allEvents, newEvent]);
+      setAllEvents([...allEvents, Appointment]);
     }
 
     const handleSubmit = (event) => {
@@ -70,77 +71,78 @@ function App() {
     }
   
     return (
-  <div className="popup">
+      <div className="popup">
         <label style={{position:'absolute',top:0,right:240}}>
-              Appointment Details
+          Appointment Details
         </label>
         <form onSubmit={handleSubmit}>
-  
-  
-          <div className="input-grid">
-            
+          <div className="input-grid">  
             <label>
               Title:
-              <input type="title" value={newEvent.title} onChange={(e) => setNewEvent({...newEvent,title:e.target.value})} />
+              <input type="title" value={Appointment.title} 
+              onChange={(e) => setAppointment({...Appointment,title:e.target.value})} />
             </label>
             <label>
               Date:
-              <DateTimePicker type="date" value={newEvent.start} onChange={(e) => setNewEvent({...newEvent,start:e,end:e})} />
+              <DateTimePicker type="date" value={Appointment.start} 
+              onChange={(e) => setAppointment({...Appointment,start:e,end:e})} />
             </label>
             <label>
               Doctor:
-              <input type="doctor"value={newEvent.resource} onChange={(e) =>setNewEvent({...newEvent,resource:e.target.value})} />
+              <input type="doctor"value={Appointment.resource} 
+              onChange={(e) => setAppointment({...Appointment,resource:e.target.value})} />
             </label>
             <label  style={{position:'absolute',top:90,right:270}}>
               Notes:
-              <input  style={{position:'absolute',width:210}} value={newEvent.notes} type="notes"  onChange={(e) =>setNewEvent({...newEvent,notes:e.target.value})} />
+              <input  style={{position:'absolute',width:210}} value={Appointment.notes} type="notes"  
+              onChange={(e) => setAppointment({...Appointment,notes:e.target.value})} />
             </label>
           </div>
-          <button style={{position:'absolute',top:130,right:250}} type="submit" onClick={handleAddEvent}>Create Appointment</button>
+          <button style={{position:'absolute',top:130,right:250}} type="submit" 
+          onClick={handleAddEvent}>Create Appointment</button>
         </form>
       </div>
     );
   }
 
-  function Appointment() {  
+  function ViewAppointment() {  
     return (
       <div className="popup">
-            <label style={{position:'absolute',top:0,right:240}}>
-                  Appointment Details
-            </label>
-      
-      
-              <div className="input-grid">
-                
-                <label>
-                  Title:
-                  <input type="title" value={event.title}  />
-                </label>
-                <label>
-                  Date:
-                  <DateTimePicker type="date" value={event.start}  />
-                </label>
-                <label>
-                  Doctor:
-                  <input type="doctor"value={event.resource}  />
-                </label>
-                <label  style={{position:'absolute',top:90,right:270}}>
-                  Notes:
-                  <input  style={{position:'absolute',width:210}} value={event.notes} type="notes"   />
-                </label>
-                <button style={{position:'absolute',top:130,right:320}} type="submit" onClick={toggleAppoinmtnet}>Close</button>
+        <label style={{position:'absolute',top:0,right:240}}>
+          Appointment Details
+        </label>
+        <div className="input-grid">
+          
+          <label>
+            Title:
+            <input type="title" value={event.title}  />
+          </label>
+          <label>
+            Date:
+            <DateTimePicker type="date" value={event.start}  />
+          </label>
+          <label>
+            Doctor:
+            <input type="doctor"value={event.resource}  />
+          </label>
+          <label  style={{position:'absolute',top:90,right:270}}>
+            Notes:
+            <input  style={{position:'absolute',width:210}} value={event.notes} type="notes"   />
+          </label>
+          <button style={{position:'absolute',top:130,right:320}} type="submit" 
+          onClick={toggleViewAppointment}>Close</button>
 
-              </div>
-          </div>
-        );
-      }
+        </div>
+      </div>
+    );
+  }
 
   
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
-  const toggleAppoinmtnet = (e) => {
+  const toggleViewAppointment = (e) => {
     setOpenDetails(!isDetails);
     setEvent(e);
   }
@@ -148,7 +150,7 @@ function App() {
   return (
       <div className="App">
         <div style={{ position: 'absolute', top: 50, left: 50 }}>
-        <img  width={150} left="20" height={150} src={img} alt="logo"/>
+        {/* <img  width={150} left="20" height={150} src={img} alt="logo"/> */}
      </div>
           <view style={{position:'absolute',right:40}}>
             <text>Logged in as: <b>One Medical</b></text>
@@ -164,8 +166,8 @@ function App() {
               
 
 
-          <Calendar onSelectEvent={(e)=>toggleAppoinmtnet(e)}  localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
-          {isDetails && <Appointment />}
+          <Calendar onSelectEvent={(e)=>toggleViewAppointment(e)}  localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+          {isDetails && <ViewAppointment />}
 
       </div>
 
