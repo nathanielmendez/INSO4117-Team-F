@@ -1,7 +1,9 @@
-from daos import patientDAO
 from flask import jsonify
+from daos.patientDAO import PatientDAO
+from daos.doctorDAO import doctorDAO
 
-from daos.patientDAO import patientDAO
+
+
 class patientHandler:
     def build_person_dict(self, row):
         result = {"p_ID":row[0],
@@ -21,7 +23,7 @@ class patientHandler:
         return result
 
     def getAllPatients(self):
-        dao = patientDAO()
+        dao = PatientDAO()
         user_list = dao.getAllPatients()
         result_list = []
         for row in user_list:
@@ -32,7 +34,7 @@ class patientHandler:
     def getPatientByName(self, json):
         f_name = json['f_name']
         l_name = json['l_name']
-        dao = patientDAO()
+        dao = PatientDAO()
         row = dao.getPatientByName(f_name,l_name)
         if not row:
             return jsonify(Error="Person Not Found"), 404
@@ -42,7 +44,7 @@ class patientHandler:
 
     def getAppointmentByID(self, json):
         p_id = json['p_id']
-        dao = patientDAO()
+        dao = PatientDAO()
         row = dao.getAppointmentByID(p_id)
         lst = []
         for val in row:
@@ -52,3 +54,17 @@ class patientHandler:
             return jsonify(Error="No appointment found"), 404
         else:
             return jsonify(Person=lst)
+
+    def scheduleAppointment(self, json):
+
+        if not doctorDAO().getDoctorById(json["doctor_id"]):
+            return jsonify(Error="Doctor not found"), 404
+        
+        if not PatientDAO().getPatientByID(json["patient_id"]):
+            return jsonify(Error="Patient not found"), 404
+        
+        if not doctorDAO().getOfficeById(json["office_id"]):
+            return jsonify(Error="Office not found"), 404
+        
+        return jsonify(PatientDAO().addAppointment(json["office_id"], json["patient_id"], json["doctor_id"], json["time"], json["date"], json["notes"])), 200
+        

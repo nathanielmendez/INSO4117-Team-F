@@ -51,3 +51,10 @@ class doctorHandler:
             return jsonify(Error="Person Not Found"), 404
         else:
             return jsonify(Person=lst)
+
+    def getAppointmentsById(self, doctor_id):
+
+        if not doctorDAO().getDoctorById(doctor_id):
+            return jsonify(Error="Doctor Not Found"), 404
+        
+        return jsonify(doctorDAO().getAppointmentsById(doctor_id)), 200

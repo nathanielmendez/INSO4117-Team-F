@@ -43,10 +43,21 @@ def getDoctorByOffice():
         return jsonify(Error="Method not allowed."), 405
 
 
-@app.route('/patient/app', methods=['GET'])
-def getPatientByID():
+@app.route('/patient/app', methods=['GET', 'POST'])
+def mangeAppointments():
     if request.method == 'GET':
         return patientHandler().getAppointmentByID(request.json)
+    
+    elif request.method == 'POST':
+        return patientHandler().scheduleAppointment(request.json)
+    
+    else:
+        return jsonify(Error="Method not allowed."), 405
+    
+@app.route('/doctor/appointments/<int:d_id>', methods=['GET'])
+def manageAppointmentsDoctor(d_id):
+    if request.method == 'GET':
+        return doctorHandler().getAppointmentsById(d_id)
     else:
         return jsonify(Error="Method not allowed."), 405
 
