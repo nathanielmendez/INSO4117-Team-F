@@ -17,3 +17,7 @@
 
 ``` pip install -r "requirements.txt" ```
 
+
+## Run the following command to update requirements file:
+
+``` pip freeze > requirements.txt ```
