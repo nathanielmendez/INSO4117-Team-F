@@ -1,7 +1,6 @@
 pg_config = {
-    'host' : 'localhost',
-    'port' : '5000',
-    'user' : 'postgres',
-    'passwd' : 'POSTAdmin1',
-    'dbname' : 'DocCalendar'
+    'host' : 'doc-calendar.postgres.database.azure.com',
+    'user' : 'desarrollador',
+    'passwd' : 'Testing2023',
+    'dbname' : 'doccalendar'
 }
