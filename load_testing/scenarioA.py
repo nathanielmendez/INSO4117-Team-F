@@ -15,7 +15,7 @@ import random
 
 class Patient(HttpUser):
     wait_time = between(1, 5)
-    weight = 10 # 10 times more likely to be selected than the other users
+    weight = 5 # 5 times more likely to be selected than the other users
 
 
     @task(5) # 5 times more likely to be selected than the other tasks
@@ -38,9 +38,8 @@ class Patient(HttpUser):
 
 class Doctor(HttpUser):
     wait_time = between(1, 10)
-    weight = 1
 
-    @task(3)
+    @task
     def see_all_schedule_appointements(self):
         d_id = random.randint(2, 5)
         self.client.get("/doctor/appointments/%s"%(d_id))

@@ -68,3 +68,7 @@ class patientHandler:
         
         return jsonify(PatientDAO().addAppointment(json["office_id"], json["patient_id"], json["doctor_id"], json["time"], json["date"], json["notes"])), 200
         
+    def cancelAppointment(self, json):
+
+        return jsonify(PatientDAO().cancelAppointment(json["a_id"]))
+

@@ -57,7 +57,7 @@ class PatientDAO:
         cursor.close()
         return result
 
-    def getAppointmentByID(self,p_id):
+    def getAppointmentByID(self, p_id):
         cursor = self.conn.cursor()
         query = """
         select * 
@@ -82,4 +82,19 @@ class PatientDAO:
         self.conn.commit()
         result = cursor.fetchone()
         cursor.close()
+        return result
+
+    def cancelAppointment(self, a_id):
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
+        query = """
+        UPDATE appointment
+        SET is_valid = FALSE
+        WHERE a_id = %s
+        RETURNING a_id;
+        """
+        cursor.execute(query, (a_id,))
+        self.conn.commit()
+        result = cursor.fetchone()
+        cursor.close()
+
         return result
