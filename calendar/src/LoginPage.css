@@ -1,0 +1,93 @@
+
+.login-page {
+    display: flex;
+    background-image: 'url(${background})';
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .form-login {
+    display: flex;
+    
+    flex-direction: column;
+    background-color: #e6e6e6;
+    padding: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .form-register {
+    display: flex;
+    flex-direction: column;
+    background-color: hsl(0, 1%, 61%);
+    padding: 2rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+  
+  input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+  }
+  .password{
+    color: #e64a19;
+    font-size: 8pt;
+  }
+
+  .docCal{
+    position: absolute;
+    color: #000000;
+    font-size: 50px;
+    top: 100px;
+    font-style: oblique;
+    background-color: #ffffff;
+  }
+  
+  .form-login button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #0077ff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .form-register button {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.25rem;
+    background-color: #01b02d;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005ad6;
+  }
+  
+  .form-register button:hover {
+    background-color: #e64a19;
+  }
