@@ -24,31 +24,31 @@ const localizer = dateFnsLocalizer({
 });
 const events = [{
     title: "Dentist Appointment",
-    start: new Date(2023,2,12,12,30),
-    end: new Date(2023,2,12,1,30),
+    start: new Date(2023,3,12,12,30),
+    end: new Date(2023,3,12,1,30),
     resource:"Dr Von",
     notes:"Cant eat before Appointment"
 },
 {
     title: "Yearly Checkup",
-    start: new Date(2023,2,10,4),
-    end: new Date(2023,2,10,5,30),
+    start: new Date(2023,3,10,4),
+    end: new Date(2023,3,10,5,30),
     resource:"Doctor Stevens",
     notes:""
 
 },
 {
     title: "CTScan Appointment",
-    start: new Date(2023,2,21,3),
-    end: new Date(2023,2,21,3,30),
+    start: new Date(2023,3,21,3),
+    end: new Date(2023,3,21,3,30),
     resource:"Doctor Emily",
     notes:"No metal items allowed"
 
 },
 {
     title: "CTScan Evaluation",
-    start: new Date(2023,2,28,9),
-    end: new Date(2023,2,28,10,30),
+    start: new Date(2023,3,28,9),
+    end: new Date(2023,3,28,10,30),
     resource:"Dctor Mendez",
     notes:""
 },]
@@ -62,83 +62,82 @@ function CalendarPage() {
 
 
   function Popup() {
-    const [Appointment, setAppointment] = useState({title: "",
-     start: "", end: "", resource: "", notes: ""});
-
+    const [appointment, setAppointment] = useState({
+      title: "",
+      start: "",
+      end: "",
+      resource: "",
+      notes: ""
+    });
+  
     function handleAddEvent() {
-      setAllEvents([...allEvents, Appointment]);
+      setAllEvents([...allEvents, appointment]);
     }
-
+  
     const handleSubmit = (event) => {
       event.preventDefault();
     }
   
     return (
       <div className="popup">
-        <label style={{position:'absolute',top:0,right:240}}>
-          Appointment Details
-        </label>
+        <h2>Appointment Details</h2>
         <form onSubmit={handleSubmit}>
-          <div className="input-grid">  
-            <label>
-              Title:
-              <input type="title" value={Appointment.title} 
-              onChange={(e) => setAppointment({...Appointment,title:e.target.value})} />
-            </label>
-            <label>
-              Date:
-              <DateTimePicker type="date" value={Appointment.start} 
-              onChange={(e) => setAppointment({...Appointment,start:e,end:e})} />
-            </label>
-            <label>
-              Doctor:
-              <input type="doctor"value={Appointment.resource} 
-              onChange={(e) => setAppointment({...Appointment,resource:e.target.value})} />
-            </label>
-            <label  style={{position:'absolute',top:90,right:270}}>
-              Notes:
-              <input  style={{position:'absolute',width:210}} value={Appointment.notes} type="notes"  
-              onChange={(e) => setAppointment({...Appointment,notes:e.target.value})} />
-            </label>
+          <div className="input-grid">
+            <div className="form-field">
+              <label htmlFor="title">Title:</label>
+              <input id="title" type="text" value={appointment.title} onChange={(e) => setAppointment({...appointment, title: e.target.value})} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="start">Date:</label>
+              <input id="start" type="datetime-local" value={appointment.start} onChange={(e) => setAppointment({...appointment, start: e.target.value, end: e.target.value})} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="resource">Doctor:</label>
+              <input id="resource" type="text" value={appointment.resource} onChange={(e) => setAppointment({...appointment, resource: e.target.value})} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="notes">Notes:</label>
+              <textarea id="notes" rows="1" cols="30" value={appointment.notes} onChange={(e) => setAppointment({...appointment, notes: e.target.value})} />
+            </div>
           </div>
-          <button style={{position:'absolute',top:130,right:250}} type="submit" 
-          onClick={handleAddEvent}>Create Appointment</button>
+          <button style={{position:'absolute',top:200,left:260}} type="submit" onClick={handleAddEvent}>Create Appointment</button>
         </form>
       </div>
     );
   }
+  
+
+  
 
   function ViewAppointment() {  
     return (
       <div className="popup">
-        <label style={{position:'absolute',top:0,right:240}}>
-          Appointment Details
-        </label>
-        <div className="input-grid">
-          
-          <label>
-            Title:
-            <input type="title" value={event.title}  />
-          </label>
-          <label>
-            Date:
-            <DateTimePicker type="date" value={event.start}  />
-          </label>
-          <label>
-            Doctor:
-            <input type="doctor"value={event.resource}  />
-          </label>
-          <label  style={{position:'absolute',top:90,right:270}}>
-            Notes:
-            <input  style={{position:'absolute',width:210}} value={event.notes} type="notes"   />
-          </label>
-          <button style={{position:'absolute',top:130,right:320}} type="submit" 
-          onClick={toggleViewAppointment}>Close</button>
-
-        </div>
+        <h2>Appointment Details</h2>
+        <form>
+          <div className="input-grid">
+            <div className="form-field">
+              <label htmlFor="title">Title:</label>
+              <input id="title" type="text" value={event.title}/>
+            </div>
+            <div className="form-field">
+              <label htmlFor="start">Date:</label>
+              <input id="start" type="datetime-local" value={format(new Date(event.start), "yyyy-MM-dd'T'HH:mm")} />
+            </div>
+            <div className="form-field">
+              <label htmlFor="resource">Doctor:</label>
+              <input id="resource" type="text" value={event.resource}/>
+            </div>
+            <div className="form-field">
+              <label htmlFor="notes">Notes:</label>
+              <textarea id="notes" rows="1" cols="30" value={event.notes} />
+            </div>
+          </div>
+          <button style={{position:'absolute',top:200,left:260}} type="submit" onClick={toggleViewAppointment}>Close</button>
+        </form>
       </div>
     );
   }
+  
 
   
   const togglePopup = () => {
