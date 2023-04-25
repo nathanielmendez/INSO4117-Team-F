@@ -10,6 +10,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-clock/dist/Clock.css";
 // import img from "./logo.png"
 import "./CalendarPage.css";
+import { useNavigate } from "react-router-dom";
 
 
 const locales = {
@@ -22,43 +23,15 @@ const localizer = dateFnsLocalizer({
   getDay,
   locales,
 });
-const events = [{
-    title: "Dentist Appointment",
-    start: new Date(2023,3,12,12,30),
-    end: new Date(2023,3,12,1,30),
-    resource:"Dr Von",
-    notes:"Cant eat before Appointment"
-},
-{
-    title: "Yearly Checkup",
-    start: new Date(2023,3,10,4),
-    end: new Date(2023,3,10,5,30),
-    resource:"Doctor Stevens",
-    notes:""
-
-},
-{
-    title: "CTScan Appointment",
-    start: new Date(2023,3,21,3),
-    end: new Date(2023,3,21,3,30),
-    resource:"Doctor Emily",
-    notes:"No metal items allowed"
-
-},
-{
-    title: "CTScan Evaluation",
-    start: new Date(2023,3,28,9),
-    end: new Date(2023,3,28,10,30),
-    resource:"Dctor Mendez",
-    notes:""
-},]
+var events = []
 
 
 function CalendarPage() {
   const [isOpen, setIsOpen] = useState(false);
+  const [refopen, referalOpen] = useState(false);
   const [allEvents, setAllEvents] = useState(events);
   const [isDetails,setOpenDetails] = useState(false);
-  const [event,setEvent] = useState("");
+  var [event,setEvent] = useState("");
 
 
   function Popup() {
@@ -72,10 +45,12 @@ function CalendarPage() {
   
     function handleAddEvent() {
       setAllEvents([...allEvents, appointment]);
+      setIsOpen(!isOpen);
     }
   
     const handleSubmit = (event) => {
       event.preventDefault();
+
     }
   
     return (
@@ -138,12 +113,56 @@ function CalendarPage() {
     );
   }
   
+  const navigate = useNavigate();
 
   
   const togglePopup = () => {
     setIsOpen(!isOpen);
   }
 
+  
+
+  const logout = (event) =>  {
+    event.preventDefault();
+    navigate("/")
+
+  }
+  const [selectedOption, setSelectedOption] = useState('');
+
+  const handleSelectChange = (e) => {
+    setSelectedOption(e.target.value);
+    const newEvents = [
+      {
+        title: "Dentist Appointment",
+        start: new Date(2023, 3, 12, 12, 30),
+        end: new Date(2023, 3, 12, 1, 30),
+        resource: "Dr Von",
+        notes: "Can't eat before Appointment"
+      },
+      {
+        title: "Yearly Checkup",
+        start: new Date(2023, 3, 10, 4),
+        end: new Date(2023, 3, 10, 5, 30),
+        resource: "Doctor Stevens",
+        notes: ""
+      },
+      {
+        title: "CTScan Appointment",
+        start: new Date(2023, 3, 21, 3),
+        end: new Date(2023, 3, 21, 3, 30),
+        resource: "Doctor Emily",
+        notes: "No metal items allowed"
+      },
+      {
+        title: "CTScan Evaluation",
+        start: new Date(2023, 3, 23, 2, 30),
+        end: new Date(2023, 3, 23, 4),
+        resource: "Doctor Zhang",
+        notes: ""
+      }
+    ];
+    setAllEvents(newEvents);
+  };
   const toggleViewAppointment = (e) => {
     setOpenDetails(!isDetails);
     setEvent(e);
@@ -155,11 +174,25 @@ function CalendarPage() {
         {/* <img  width={150} left="20" height={150} src={img} alt="logo"/> */}
      </div>
           <view style={{position:'absolute',right:40}}>
-            <text>Logged in as: <b>One Medical</b></text>
+            <text >Logged in as: <b>One Medical    </b></text>
+            <button className="button" onClick={logout}> Logout</button>
           </view>
 
           <h1>DocCalendar</h1>
-          <h3>Patient: Mary Roshvenster</h3>
+          <div>
+          <p>Patient Selected:</p>
+
+
+        <select onChange={handleSelectChange}>
+
+          <option value="">--Select a patient--</option>
+          <option value="option1">Mary Roberts</option>
+          <option value="option2">Henry Styles</option>
+          <option value="option3">Therman Uma</option>
+          <option value="option3" > - New Patient Code: 3842 -</option>
+
+        </select>
+        </div>`
 
           <div className="app">
           <button onClick={togglePopup}>Add Appointment</button>

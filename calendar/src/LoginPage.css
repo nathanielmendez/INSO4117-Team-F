@@ -21,7 +21,7 @@
   }
   
   .form-register {
-    display: flex;
+    display: grid;
     flex-direction: column;
     background-color: hsl(0, 1%, 61%);
     padding: 2rem;
@@ -32,6 +32,9 @@
   h2 {
     margin-top: 0;
     margin-bottom: 1rem;
+  }
+  h3 {
+    size: 300px;
   }
   
   .form-group {

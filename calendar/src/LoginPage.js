@@ -55,9 +55,9 @@ function LoginPage() {
         <button type="submit">Login</button>
       </form>
       <form onSubmit={handleRegister} className='form-register'>
-        <h3>Register</h3>
+        <h2 >Register</h2>
         <div className="form-group">
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="username">Full Name:</label>
           <input type="text" id="username" value={Rusername} onChange={(e) => setRUsername(e.target.value)} required />
         </div>
         <div className="form-group">
