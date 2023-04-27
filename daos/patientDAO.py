@@ -15,26 +15,24 @@ class PatientDAO:
         self.conn = psycopg2._connect(connection_url)
 
     def __del__(self):
-        logging.info("Connection Closed")
+        # logging.info("Connection Closed")
         self.conn.close()
 
 
 
     def getAllPatients(self):
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         query = """
         select *
         from patient;
         """
         cursor.execute(query)
-        result = []
-        for row in cursor:
-            result.append(row)
+        result = cursor.fetchall()
         cursor.close()
         return result
 
     def getPatientByName(self,f_name,l_name):
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         query = """
         select * 
         from patient
@@ -58,16 +56,14 @@ class PatientDAO:
         return result
 
     def getAppointmentByID(self, p_id):
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(cursor_factory=RealDictCursor)
         query = """
         select * 
         from appointment
         where p_id = %s;
         """
         cursor.execute(query, (p_id,))
-        result = []
-        for row in cursor:
-            result.append(row)
+        result = cursor.fetchall()
         cursor.close()
         return result
     

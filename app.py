@@ -8,34 +8,34 @@ app = Flask(__name__)
 def greeting():
     return 'This is flask!'
 
-@app.route('/patients/all', methods=['GET'])
+@app.route('/patients', methods=['GET'])
 def getAllPatients():
     if request.method == 'GET':
         return patientHandler().getAllPatients()
     else:
         return jsonify(Error="Method not allowed."), 405
-@app.route('/doctors/all', methods=['GET'])
+@app.route('/doctors', methods=['GET'])
 def getAllDoctors():
     if request.method == 'GET':
         return doctorHandler().getAllDoctors()
     else:
         return jsonify(Error="Method not allowed."), 405
 
-@app.route('/patient/name', methods=['GET'])
-def getPatientByName():
+@app.route('/patient/<int:p_id>', methods=['GET'])
+def getPatient(p_id):
     if request.method == 'GET':
         return patientHandler().getPatientByName(request.json)
     else:
         return jsonify(Error="Method not allowed."), 405
 
-@app.route('/doctor/name', methods=['GET'])
+@app.route('/doctor/<int:d_id>', methods=['GET'])
 def getDoctorByName():
     if request.method == 'GET':
         return doctorHandler().getDoctorByName(request.json)
     else:
         return jsonify(Error="Method not allowed."), 405
 
-@app.route('/doctor/office', methods=['GET'])
+@app.route('/doctor/office/<int:o_id>', methods=['GET'])
 def getDoctorByOffice():
     if request.method == 'GET':
         return doctorHandler().getDoctorByOffice(request.json)
@@ -43,10 +43,10 @@ def getDoctorByOffice():
         return jsonify(Error="Method not allowed."), 405
 
 
-@app.route('/patient/app', methods=['GET', 'POST', 'DELETE'])
+@app.route('/patient/appointments', methods=['GET', 'POST', 'DELETE'])
 def mangeAppointments():
     if request.method == 'GET':
-        return patientHandler().getAppointmentByID(request.json)
+        return patientHandler().getAppointmentByID(request.args)
     
     elif request.method == 'POST':
         return patientHandler().scheduleAppointment(request.json)
